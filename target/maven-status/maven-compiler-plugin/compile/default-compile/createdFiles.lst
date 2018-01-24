@@ -1,0 +1,6 @@
+com/theaterseating/data/Section.class
+com/theaterseating/data/Request.class
+com/theaterseating/solver/SeatingSolver.class
+com/theaterseating/data/Layout.class
+com/theaterseating/solver/SeatingSearch$1.class
+com/theaterseating/solver/SeatingSearch.class

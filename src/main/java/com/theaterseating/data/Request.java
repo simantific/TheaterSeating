@@ -1,6 +1,6 @@
-package data;
+package com.theaterseating.data;
 
-public class TheaterRequest {
+public class Request {
     private String personName;
     private int nonTickets;
     private boolean isOk;
@@ -48,27 +48,16 @@ public class TheaterRequest {
     }
 
     public String getStatus(){
-
-        String status = null;
-
+        String status;
         if(isOk){
-
             status = personName + " " + "Row " + rowNumber + " " + "Section " + sectionNumber;
-
-        }else{
-
+        } else {
             if(rowNumber == -1 && sectionNumber == -1){
-
                 status = personName + " " + "Call to split party.";
-
-            }else{
-
+            } else {
                 status = personName + " " + "Sorry, we can't handle your party.";
-
             }
-
         }
-
         return status;
     }
 }

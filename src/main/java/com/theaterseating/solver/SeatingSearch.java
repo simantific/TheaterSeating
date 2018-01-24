@@ -1,9 +1,9 @@
-package solver;
+package com.theaterseating.solver;
 
 
-import data.TheaterSection;
-import data.TheaterLayout;
-import data.TheaterRequest;
+import com.theaterseating.data.Section;
+import com.theaterseating.data.Layout;
+import com.theaterseating.data.Request;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,11 +16,11 @@ import java.util.List;
 public class SeatingSearch {
 
 
-    public TheaterLayout getTheaterLayout(String rawLayout) throws NumberFormatException {
+    public Layout getTheaterLayout(String rawLayout) throws NumberFormatException {
 
-        TheaterLayout theaterLayout = new TheaterLayout();
-        TheaterSection section;
-        List<TheaterSection> sectionsList = new ArrayList<TheaterSection>();
+        Layout layout = new Layout();
+        Section section;
+        List<Section> sectionsList = new ArrayList<Section>();
         int totalCapacity = 0, value;
         String[] rows = rawLayout.split(System.getProperty("line.separator"));
         String[] sections;
@@ -43,7 +43,7 @@ public class SeatingSearch {
 
                 totalCapacity = totalCapacity + value;
 
-                section = new TheaterSection();
+                section = new Section();
                 section.setRowNumber(i + 1);
                 section.setSectionNumber(j + 1);
                 section.setCapacity(value);
@@ -55,19 +55,19 @@ public class SeatingSearch {
 
         }
 
-        theaterLayout.setTotalCapacity(totalCapacity);
-        theaterLayout.setAvailableSeats(totalCapacity);
-        theaterLayout.setSections(sectionsList);
+        layout.setTotalCapacity(totalCapacity);
+        layout.setAvailableSeats(totalCapacity);
+        layout.setSections(sectionsList);
 
-        return theaterLayout;
+        return layout;
 
     }
 
 
-    public List<TheaterRequest> getTicketRequests(String ticketRequests) throws NumberFormatException {
+    public List<Request> getTicketRequests(String ticketRequests) throws NumberFormatException {
 
-        List<TheaterRequest> requestsList = new ArrayList<TheaterRequest>();
-        TheaterRequest request;
+        List<Request> requestsList = new ArrayList<Request>();
+        Request request;
 
         String[] requests = ticketRequests.split(System.getProperty("line.separator"));
 
@@ -75,7 +75,7 @@ public class SeatingSearch {
 
             String[] rData = r.split(" ");
 
-            request = new TheaterRequest();
+            request = new Request();
 
             request.setName(rData[0]);
 
@@ -98,13 +98,13 @@ public class SeatingSearch {
     }
 
 
-    private int findComplementRequest(List<TheaterRequest> requests, int complementSeats, int currentRequestIndex) {
+    private int findComplementRequest(List<Request> requests, int complementSeats, int currentRequestIndex) {
 
         int requestNo = -1;
 
         for (int i = currentRequestIndex + 1; i < requests.size(); i++) {
 
-            TheaterRequest request = requests.get(i);
+            Request request = requests.get(i);
 
             if (!request.isCompleted() && request.getNoOfTickets() == complementSeats) {
 
@@ -123,18 +123,18 @@ public class SeatingSearch {
      * Find section by it's available seats
      *
      */
-    private int findSectionByAvailableSeats(List<TheaterSection> sections, int availableSeats) {
+    private int findSectionByAvailableSeats(List<Section> sections, int availableSeats) {
 
         int i = 0;
-        TheaterSection section = new TheaterSection();
+        Section section = new Section();
         section.setAvailableSeats(availableSeats);
 
         Collections.sort(sections);
 
-        Comparator<TheaterSection> byAvailableSeats = new Comparator<TheaterSection>() {
+        Comparator<Section> byAvailableSeats = new Comparator<Section>() {
 
 
-            public int compare(TheaterSection o1, TheaterSection o2) {
+            public int compare(Section o1, Section o2) {
 
                 return o1.getAvailableSeats() - o2.getAvailableSeats();
 
@@ -154,7 +154,7 @@ public class SeatingSearch {
 
             for (i = sectionNo - 1; i >= 0; i--) {
 
-                TheaterSection s = sections.get(i);
+                Section s = sections.get(i);
 
                 if (s.getAvailableSeats() != availableSeats) break;
 
@@ -167,11 +167,11 @@ public class SeatingSearch {
         return sectionNo;
     }
 
-    public void processTicketRequests(TheaterLayout layout, List<TheaterRequest> requests) {
+    public void processTicketRequests(Layout layout, List<Request> requests) {
 
         for (int i = 0; i < requests.size(); i++) {
 
-            TheaterRequest request = requests.get(i);
+            Request request = requests.get(i);
             if (request.isCompleted()) continue;
 
             /*
@@ -185,11 +185,11 @@ public class SeatingSearch {
 
             }
 
-            List<TheaterSection> sections = layout.getSections();
+            List<Section> sections = layout.getSections();
 
             for (int j = 0; j < sections.size(); j++) {
 
-                TheaterSection section = sections.get(j);
+                Section section = sections.get(j);
 
                 if (request.getNoOfTickets() == section.getAvailableSeats()) {
 
@@ -212,7 +212,7 @@ public class SeatingSearch {
                         layout.setAvailableSeats(layout.getAvailableSeats() - request.getNoOfTickets());
                         request.setCompleted(true);
 
-                        TheaterRequest complementRequest = requests.get(requestNo);
+                        Request complementRequest = requests.get(requestNo);
 
                         complementRequest.setRowNumber(section.getRowNumber());
                         complementRequest.setSectionNumber(section.getSectionNumber());
@@ -228,7 +228,7 @@ public class SeatingSearch {
 
                         if (sectionNo >= 0) {
 
-                            TheaterSection perferctSection = sections.get(sectionNo);
+                            Section perferctSection = sections.get(sectionNo);
 
                             request.setRowNumber(perferctSection.getRowNumber());
                             request.setSectionNumber(perferctSection.getSectionNumber());
@@ -268,7 +268,7 @@ public class SeatingSearch {
 
         System.out.println("Seats Distribution.\n");
 
-        for (TheaterRequest request : requests) {
+        for (Request request : requests) {
 
             System.out.println(request.getStatus());
 

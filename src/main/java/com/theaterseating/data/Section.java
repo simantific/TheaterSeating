@@ -1,6 +1,6 @@
-package data;
+package com.theaterseating.data;
 
-public class TheaterSection implements Comparable<TheaterSection> {
+public class Section implements Comparable<Section> {
 
     private int rowNumber;
     private int sectionNumber;
@@ -39,37 +39,18 @@ public class TheaterSection implements Comparable<TheaterSection> {
         this.availableSeats = availableSeats;
     }
 
-    public int compareTo(TheaterSection o) {
-
+    public int compareTo(Section o) {
         int result = 0;
-
         if((this.availableSeats - o.availableSeats) == 0){
-
             if((this.rowNumber - o.rowNumber) == 0){
-
                 result = this.sectionNumber - o.sectionNumber;
-
-            }else{
-
+            } else {
                 result = this.rowNumber - o.rowNumber;
-
             }
-
-        }else{
-
+        } else {
             result = this.availableSeats - o.availableSeats;
-
         }
-
         return result;
 
     }
-
-    @Override
-    public String toString() {
-
-        return "Row #: " + rowNumber + " " + "Section #: " + sectionNumber + " Capacity: " + seats + " availableSeats: " + availableSeats;
-
-    }
-
 }

@@ -1,12 +1,11 @@
-package data;
+package com.theaterseating.data;
 
 import java.util.List;
 
-public class TheaterLayout {
-
+public class Layout {
         private int totalSeats;
         private int usableSeats;
-        private List<TheaterSection> sections;
+        private List<Section> sections;
 
         public int getTotalCapacity() {
             return totalSeats;
@@ -24,11 +23,11 @@ public class TheaterLayout {
             this.usableSeats = availableSeats;
         }
 
-        public List<TheaterSection> getSections() {
+        public List<Section> getSections() {
             return sections;
         }
 
-        public void setSections(List<TheaterSection> sections) {
+        public void setSections(List<Section> sections) {
             this.sections = sections;
         }
 }
