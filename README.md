@@ -3,6 +3,7 @@
 To execute the program from terminal:
 
 mvn clean install
+
 mvn exec:java -Dexec.mainClass="com.theaterseating.solver.SeatingSolver"
 
 Please provide the layout when prompted, and the hit return key. You will then be prompted to enter the requests.
