@@ -1,5 +1,8 @@
 package com.theaterseating.data;
 
+/**
+ * Stores all the information related to a particular request.
+ */
 public class Request {
     private String personName;
     private int nonTickets;

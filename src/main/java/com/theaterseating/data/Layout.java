@@ -2,6 +2,9 @@ package com.theaterseating.data;
 
 import java.util.List;
 
+/**
+ * Class to store the overall status of the layout in the theater
+ */
 public class Layout {
         private int totalSeats;
         private int usableSeats;

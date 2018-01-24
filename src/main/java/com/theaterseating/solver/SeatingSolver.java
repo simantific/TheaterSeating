@@ -5,10 +5,11 @@ import java.util.Scanner;
 import com.theaterseating.data.Layout;
 import com.theaterseating.data.Request;
 
+/**
+ * The driver class for reading the input layout, requests and computing
+ * the appropriate distribution of seats.
+ */
 public class SeatingSolver {
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         // Logic to read input and solve the theater seating problem
         Scanner scanner = new Scanner(System.in);
@@ -36,21 +37,12 @@ public class SeatingSolver {
         SeatingSearch service = new SeatingSearch();
 
         try{
-
             Layout theaterLayout = service.getTheaterLayout(layout.toString());
-
             List<Request> requests = service.getTicketRequests(ticketRequests.toString());
-
             service.processTicketRequests(theaterLayout, requests);
 
-        }catch(NumberFormatException nfe){
-
-            System.out.println(nfe.getMessage());
-
-        }catch(Exception e){
-
+        } catch(Exception e){
             e.printStackTrace();
-
         }
     }
 }
